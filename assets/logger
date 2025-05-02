@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BYAKUGAN | Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap");
+        *
+        {
+            box-sizing: border-box;
+        }
+        body
+        {
+            margin: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            font-family: "Lato", sans-serif;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            background-color: #ecf0f3;
+        }
+        .login-div
+        {
+            width: 430px;
+            height: 700px;
+            padding: 60px 35px 35px 35px;
+            border-radius: 40px;
+            background-color: #ecf0f3;
+            box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+        }
+        .logo
+        {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto;
+            box-shadow: 0px 0px 2px #5f5f5f, 0px 0px 0px 5px #ecf0f3, 8px 8px 15px #a7aaaf, -8px -8px 15px #fff;
+            object-fit: cover;
+            border: 3px solid #1ce83a;
+            padding: 5px;
+        }
+        .title
+        {
+            text-align: center;
+            font-size: 28px;
+            padding-top: 24px;
+            letter-spacing: 0.5px;
+            color: #1ce83a;
+        }
+        .sub-title
+        {
+            text-align: center;
+            font-size: 15px;
+            padding-top: 7px;
+            letter-spacing: 3px;
+        }
+        .fields
+        {
+            width: 100%;
+            padding: 75px 5px 5px 5px;
+        }
+        .fields input
+        {
+            border: none;
+            outline: none;
+            background: none;
+            font-size: 18px;
+            color: #555;
+            padding: 20px 10px 20px 5px;
+            width: 100%;
+        }
+        .username, .password
+        {
+            margin-bottom: 30px;
+            border-radius: 25px;
+            box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+            display: flex;
+            align-items: center;
+        }
+        .fields svg{
+            height: 22px;
+            margin: 0 10px -3px 25px;
+            color: #1ce83a;
+        }
+        .signin-button
+        {
+            outline: none;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            height: 60px;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: 700;
+            font-family: "Lato", sans-serif;
+            color: #fff;
+            text-align: center;
+            background-color: #1ce83a;
+            box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #fff;
+            transition: all 0.5s;
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .signin-button:hover
+        {
+            background-color: #50e5b5;
+        }
+        .signin-button:active
+        {
+            background-color: #88ef9c;
+        }
+        .credit
+        {
+            text-align: center;
+            font-size: 15px;
+            margin-top: 30px;
+        }
+        .credit a {
+            color: #1ce83a;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        .credit a:hover {
+            color: #50e5b5;
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 480px) {
+            .login-div {
+                width: 90%;
+                height: auto;
+                padding: 40px 25px;
+                border-radius: 30px;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .title {
+                font-size: 24px;
+            }
+            
+            .sub-title {
+                font-size: 13px;
+                letter-spacing: 2px;
+            }
+            
+            .fields {
+                padding: 50px 5px 5px 5px;
+            }
+            
+            .fields input {
+                font-size: 16px;
+                padding: 15px 10px 15px 5px;
+            }
+            
+            .signin-button {
+                height: 50px;
+                font-size: 18px;
+            }
+            
+            .fields svg {
+                height: 18px;
+                margin: 0 8px -3px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-div">
+        <img src="img/logo.png" alt="Byakugan Logo" class="logo">
+        <div class="title">BYAKUGAN</div>
+        <div class="sub-title">See the world through sacred eyes</div>
+        
+        <div class="fields">
+            <div class="username">
+                <svg viewBox="0 0 20 20">
+                    <path fill="currentColor" d="M12.075,10.812c1.358-0.853,2.242-2.507,2.242-4.037c0-2.181-1.795-4.618-4.198-4.618S5.921,4.594,5.921,6.775c0,1.53,0.884,3.185,2.242,4.037c-3.222,0.865-5.6,3.807-5.6,7.298c0,0.23,0.189,0.42,0.42,0.42h14.273c0.23,0,0.42-0.189,0.42-0.42C17.676,14.619,15.297,11.677,12.075,10.812 M6.761,6.775c0-2.162,1.773-3.778,3.358-3.778s3.359,1.616,3.359,3.778c0,2.162-1.774,3.778-3.359,3.778S6.761,8.937,6.761,6.775 M3.415,17.69c0.218-3.51,3.142-6.297,6.704-6.297c3.562,0,6.486,2.787,6.705,6.297H3.415z"></path>
+                </svg>
+                <input type="text" id="uname" placeholder="Username" autocomplete="username">
+            </div>
+            
+            <div class="password">
+                <svg viewBox="0 0 20 20">
+                    <path fill="currentColor" d="M17.308,7.564h-1.993c0-2.929-2.385-5.314-5.314-5.314S4.686,4.635,4.686,7.564H2.693c-0.244,0-0.443,0.2-0.443,0.443v9.3c0,0.243,0.199,0.442,0.443,0.442h14.615c0.243,0,0.442-0.199,0.442-0.442v-9.3C17.75,7.764,17.551,7.564,17.308,7.564 M10,3.136c2.442,0,4.43,1.986,4.43,4.428H5.571C5.571,5.122,7.558,3.136,10,3.136 M16.865,16.864H3.136V8.45h13.729V16.864z M10,10.664c-0.854,0-1.55,0.696-1.55,1.551c0,0.699,0.467,1.292,1.107,1.485v0.95c0,0.243,0.2,0.442,0.443,0.442s0.443-0.199,0.443-0.442V13.7c0.64-0.193,1.106-0.786,1.106-1.485C11.55,11.36,10.854,10.664,10,10.664 M10,12.878c-0.366,0-0.664-0.298-0.664-0.663c0-0.366,0.298-0.665,0.664-0.665c0.365,0,0.664,0.299,0.664,0.665C10.664,12.58,10.365,12.878,10,12.878"></path>
+                </svg>
+                <input type="password" id="passd" placeholder="Password" autocomplete="current-password">
+            </div>
+        </div>
+        
+        <button class="signin-button" id="loginBtn">Login</button>
+        
+        <div class="credit">
+            Created by <a href="https://github.com/Anon4You" target="_blank">Alienkrishn [Anon4You]</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginBtn = document.getElementById('loginBtn');
+            
+            loginBtn.addEventListener('click', () => {
+                const uname = document.getElementById('uname').value.trim();
+                const pass = document.getElementById('passd').value.trim();
+                
+                if (!uname || !pass) {
+                    alert('Please enter both username and password!');
+                    return;
+                }
+                
+                // Show loading state
+                loginBtn.innerHTML = '<span class="loading"></span> AUTHENTICATING';
+                loginBtn.disabled = true;
+                
+                // Simulate authentication delay
+                setTimeout(() => {
+                    if (uname === "€UNAME" && pass === "€PASS") {
+                        localStorage.setItem("usename", uname);
+                        window.location.href = 'server.html';
+                    } else {
+                        alert("Invalid credentials! Please try again.");
+                        document.getElementById('passd').value = '';
+                        loginBtn.innerHTML = 'LOGIN';
+                        loginBtn.disabled = false;
+                    }
+                }, 1500);
+            });
+            
+            // Allow form submission on Enter key
+            document.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    loginBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

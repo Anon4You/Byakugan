@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --primary-bg: linear-gradient(135deg, #56ccf2, #2f80ed);
+  --ball-gradient: linear-gradient(145deg, #ff416c, #ff4b2b);
+  --glass-bg: rgba(255, 255, 255, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --text-color: #fff;
+  --shadow-light: rgba(255, 255, 255, 0.5);
+  --shadow-dark: rgba(0, 0, 0, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--primary-bg);
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 300px;
+  padding: 30px;
+  text-align: center;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 15px 35px var(--shadow-dark);
+  transition: transform 0.3s ease;
+}
+
+.container:hover {
+  transform: translateY(-5px);
+}
+
+.ball {
+  position: relative;
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: var(--ball-gradient);
+  box-shadow: 
+    inset 5px 5px 15px var(--shadow-dark),
+    inset -5px -5px 15px var(--shadow-light),
+    0 10px 20px var(--shadow-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.ball:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    inset 8px 8px 20px var(--shadow-dark),
+    inset -8px -8px 20px var(--shadow-light),
+    0 15px 30px var(--shadow-dark);
+}
+
+.ball h2 {
+  color: var(--text-color);
+  font-size: 5em;
+  font-weight: 700;
+  text-shadow: 2px 2px 5px var(--shadow-dark);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .container {
+    max-width: 90%;
+    padding: 20px;
+  }
+  
+  .ball {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .ball h2 {
+    font-size: 3.5em;
+  }
+}

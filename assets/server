@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Byakugan - Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e63946;
+            --dark: #1a1a2e;
+            --darker: #16213e;
+            --light: #f1faee;
+            --accent: #a8dadc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--darker), #0f3460);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 100;
+        }
+
+        #uname {
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, var(--primary), #f8bbd0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            opacity: 0.9;
+        }
+
+        nav a:hover {
+            opacity: 1;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: var(--primary);
+            font-weight: 600;
+            opacity: 1;
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .panel-container {
+            background: rgba(26, 26, 46, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .panel-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), #f8bbd0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #themeToggle {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        #themeToggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .link-container {
+            background: rgba(10, 10, 20, 0.5);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .link-header {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .link-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        #targetLink {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            color: #4dff4d;
+            word-break: break-all;
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        .copy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .copy-btn:hover {
+            background: #f44336;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .panel-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .link-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .copy-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Animation for theme toggle */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .spin {
+            animation: spin 0.5s linear;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="uname">BYAKUGAN ADMIN PANEL</h1>
+        <nav>
+            <ul>
+                <li><a class="active">DASHBOARD</a></li>
+                <li><a href="About.html">ABOUT</a></li>
+                <li><a href="help.html">HELP</a></li>
+                <li><a href="http://127.0.0.1:8084" onclick="offFunc()" style="color: var(--primary);">LOGOUT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="panel-container">
+            <div class="panel-header">
+                <h2 class="panel-title">VICTIM LINK GENERATOR</h2>
+                <button id="themeToggle">
+                    <i class="fas fa-moon"></i> DARK MODE
+                </button>
+            </div>
+            
+            <div class="link-container">
+                <p class="link-header">-- Send this link to victim --</p>
+                <div class="link-content">
+                    <code id="targetLink">€BYAKUGANLINK</code>
+                    <button class="copy-btn" onclick="copyLink()">
+                        <i class="fas fa-copy"></i> COPY LINK
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Set username from localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            const username = localStorage.getItem("usename") || "ADMIN";
+            document.getElementById('uname').textContent = `BYAKUGAN :: ${username.toUpperCase()}`;
+            
+            // Initialize theme
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                enableDarkMode();
+            }
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', toggleTheme);
+
+        function toggleTheme() {
+            if (document.body.classList.contains('dark-mode')) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
+            }
+        }
+
+        function enableDarkMode() {
+            document.body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i> LIGHT MODE';
+            localStorage.setItem('darkMode', 'enabled');
+            themeToggle.querySelector('i').classList.add('spin');
+            setTimeout(() => {
+                themeToggle.querySelector('i').classList.remove('spin');
+            }, 500);
+        }
+
+        function disableDarkMode() {
+            document.body.classList.remove('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i> DARK MODE';
+            localStorage.setItem('darkMode', 'disabled');
+            themeToggle.querySelector('i').classList.add('spin');
+            setTimeout(() => {
+                themeToggle.querySelector('i').classList.remove('spin');
+            }, 500);
+        }
+
+        // Copy link function
+        function copyLink() {
+            const link = document.getElementById('targetLink');
+            navigator.clipboard.writeText(link.textContent)
+                .then(() => {
+                    const btn = document.querySelector('.copy-btn');
+                    btn.innerHTML = '<i class="fas fa-check"></i> COPIED!';
+                    btn.style.background = '#4CAF50';
+                    setTimeout(() => {
+                        btn.innerHTML = '<i class="fas fa-copy"></i> COPY LINK';
+                        btn.style.background = 'var(--primary)';
+                    }, 2000);
+                })
+                .catch(err => {
+                    alert('Failed to copy: ' + err);
+                });
+        }
+
+        // Logout function placeholder
+        function offFunc() {
+            // Add logout logic here
+            console.log("Logout functionality would go here");
+        }
+    </script>
+</body>
+</html>
