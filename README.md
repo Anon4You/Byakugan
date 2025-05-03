@@ -8,8 +8,7 @@
 ✔ **Android-Optimized Tracking** 📱📍  
 ✔ **Zero Root Required** 🚫🔓  
 ✔ **One-Click Cloudflare Tunneling** ☁️  
-✔ **Automatic Process Cleanup** 🧹  
-✔ **Encrypted Credential Storage** 🔒  
+✔ **Automatic Process Cleanup** 🧹 
 
 ---
 
