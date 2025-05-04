@@ -123,7 +123,7 @@ EOF
     if [ -z "$link" ]; then
         ERROR "Failed to establish Cloudflare tunnel"
     fi
-    SUCCESS "Tunnel established: $link"
+    SUCCESS "Tunnel established"
 
     sed "s|€BYAKUGANLINK|$link|g" "$CWD"/assets/server > "$CWD"/assets/server.html
 
